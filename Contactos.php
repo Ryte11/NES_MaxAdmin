@@ -4,24 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/Style.css">
-    <link rel="stylesheet" href="css/guiaUsuario.css">
+    <link rel="stylesheet" href="css/contacto.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/modoOscuro.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
-    <title>Panel De Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <link rel="stylesheet" href="css/edit_profile.css">
+    <title>Panel De Control Contactos</title>
 </head>
-<style>
-    .hidden {
-        display: none;
-    }
-</style>
+<?php include 'php/verificar_sesion.php' ?>
 
 <body>
     <div class="principal">
         <div class="menu-lat">
             <div class="menu">
                 <div class="imagen">
-                    <a href="PanelDeControl.html">
+                    <a href="PanelDeControl.php">
                         <img src="IMG/logo1.png" alt="">
                     </a>
                 </div>
@@ -37,7 +34,7 @@
                             </svg>
                             <input type="search" placeholder="search" id="menuSearch">
                         </div>
-                        <a href="PanelDeControl.html" class="menu-item">
+                        <a href="PanelDeControl.php" class="menu-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32"
                                 height="32" stroke-width="1.75">
@@ -70,7 +67,7 @@
                             </svg>
                             <h3>Notificaciones</h3>
                         </a>
-                        <a href="Dashboard.html" class="menu-item">
+                        <a href="Dashboard.php" class="menu-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32"
                                 height="32" stroke-width="1.75">
@@ -85,7 +82,7 @@
                             </svg>
                             <h3>Dashboard</h3>
                         </a>
-                        <a href="Dispositivo.html" class="menu-item">
+                        <a href="Dispositivo.php" class="menu-item">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round"
@@ -113,7 +110,7 @@
                                 <li><a href="UsuarioMaxAdmin.html">Máximo Administrador</a></li>
                             </ul>
                         </li>
-                        <a href="Configuracion.html" class="menu-item">
+                        <a href="Configuracion.php" class="menu-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32"
                                 height="32" stroke-width="1.75">
@@ -158,7 +155,7 @@
         </div>
         <div class="derecha">
             <div class="header">
-                <h2 class="titulo-panel">Panel de control</h2>
+                <h2 class="titulo">Contactos</h2>
                 <div class="datos">
                     <div class="perfil">
                         <img src="IMG/Victoria.png" alt="">
@@ -222,217 +219,116 @@
                     </div>
 
                 </div>
+
             </div>
+            <!-- dashboard -->
+            <!-- aqui -->
             <div class="contenido">
-                <div class="arriba">
-                    <div class="div-gradiant">
-                        <div class="text">
-                            <h3>Alertas</h3>
-                            <p>Sistema de alertas, Este refleja todas las alertas enviadas por el usuario y el
-                                dispositivo.</p>
-                            <button>
-                                <a href="Alertas.php"  style="color: white; text-decoration: none; cursor: pointer;">Gestionar Alertas</a> 
-                            </button>
-                        </div>
-                        <div class="img-div">
-                            <div>
-                                <img src="IMG/under-constructions-55 (1).svg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="titulo-chart">Denuncias Totales</h3>
-                        <div class="chart-container">
-                            <canvas id="myChart"></canvas>
-                            <div class="total">1230</div>
-                        </div>
-                        <div class="legend">
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #4B0082;"></div>
-                                <span>Vehículos</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #00BCD4;"></div>
-                                <span>Construcción</span>
-                            </div>
-                            <div class="legend-item">
-                                <div class="legend-color" style="background-color: #FF4444;"></div>
-                                <span>Parlantes</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="alertas-panel">
-                        <div class="alertas-titulo">Alertas Recientes</div>
-                        <ul class="alertas-lista">
-                            <li class="alerta-item">
-                                <div class="alerta-punto"></div>
-                                <div class="alerta-contenido">
-                                    <div class="alertas-activas">15 alertas activas</div>
-                                </div>
-                            </li>
-                            <li class="alerta-item">
-                                <div class="alerta-punto"></div>
-                                <div class="alerta-contenido">
-                                    Ultima alerta: 2 min atras
-                                    en Boca chica, La caleta
-                                </div>
-                            </li>
-                            <li class="alerta-item">
-                                <div class="alerta-punto"></div>
-                                <div class="alerta-contenido">
-                                    55 denuncias en Santo Domingo
-                                </div>
-                            </li>
-                            <li class="alerta-item">
-                                <div class="alerta-punto"></div>
-                                <div class="alerta-contenido">
-                                    Alertas por ruido vehicular en santiago
-                                </div>
-                            </li>
-                        </ul>
-                        <a href="Alertas.php">
-                            <button class="gestion-btn">Gestionar Alertas</button>
-                        </a>
-                    </div>
+                <div class="panel-contactos">
+                    <h2>Contactos Recibidos</h2>
+                    <table class="contactos-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Conexión a la base de datos
+                            include 'php/conexion.php';
+
+                            try {
+                                // Consulta para obtener los contactos usando PDO
+                                $sql = "SELECT id, nombre, email, mensaje, fecha_envio, estado FROM contactos ORDER BY fecha_envio DESC";
+                                $stmt = $conexion->prepare($sql);
+                                $stmt->execute();
+                                $contactos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                if (count($contactos) > 0) {
+                                    foreach ($contactos as $row) {
+                                        $estado_class = ($row['estado'] == 'Visto') ? 'visto' : 'pendiente';
+                                        echo "<tr>";
+                                        echo "<td>" . htmlspecialchars($row['id']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($row['fecha_envio']) . "</td>";
+                                        echo "<td class='" . $estado_class . "'>" . htmlspecialchars($row['estado']) . "</td>";
+                                        echo "<td>
+                <button class='btn-ver' 
+                    data-id='" . htmlspecialchars($row['id']) . "' 
+                    data-mensaje='" . htmlspecialchars($row['mensaje'], ENT_QUOTES) . "' 
+                    data-email='" . htmlspecialchars($row['email']) . "' 
+                    data-nombre='" . htmlspecialchars($row['nombre']) . "'>
+                    Ver Mensaje
+                </button>
+              </td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6'>No hay contactos disponibles</td></tr>";
+                                }
+                            } catch (PDOException $e) {
+                                echo "<tr><td colspan='6'>Error al cargar los contactos: " . $e->getMessage() . "</td></tr>";
+                            }
+
+                            // No es necesario cerrar la conexión con PDO
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="abajo">
 
-                    <div class="div-gradiant">
-                        <div class="text">
-                            <h3>Dashboard</h3>
-                            <p>Dashboard, este muestra una serie de gráficos los cuales muestran los datos de todas las
-                                denuncias.</p>
-                            <button>Ver Dashboard</button>
+                <!-- Modal para ver mensaje -->
+                <div id="mensajeModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Detalle del Mensaje</h3>
+                            <span class="close">&times;</span>
                         </div>
-                        <div class="img-div">
-                            <div class="svg-2">
-                                <img src="IMG/finance-app-1-98 (1).svg" alt="">
+                        <div class="modal-body">
+                            <div class="mensaje-info">
+                                <p><strong>De:</strong> <span id="modal-nombre"></span></p>
+                                <p><strong>Email:</strong> <span id="modal-email"></span></p>
+                                <div class="mensaje-texto">
+                                    <h4>Mensaje:</h4>
+                                    <p id="modal-mensaje"></p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="grafico-container">
-                        <div class="titulo">Tendencias de Denuncias</div>
-                        <div class="leyenda">
-                            <div class="leyenda-item">
-                                <div class="leyenda-color" style="background-color: #000080;"></div>
-                                <span>M</span>
+                            <div class="mensaje-acciones">
+                                <form id="responderForm" action="php/procesar_contacto.php" method="post">
+                                    <input type="hidden" id="contacto_id" name="contacto_id">
+                                    <div class="form-group">
+                                        <label for="respuesta">Respuesta:</label>
+                                        <textarea id="respuesta" name="respuesta" rows="4"
+                                            placeholder="Escribe tu respuesta aquí..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" name="accion" value="responder"
+                                            class="btn-responder">Responder</button>
+                                        <button type="submit" name="accion" value="marcar" class="btn-marcar">Marcar
+                                            como
+                                            visto</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="leyenda-item">
-                                <div class="leyenda-color" style="background-color: #00BCD4;"></div>
-                                <span>F</span>
-                            </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="denunciasChart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-
-
-            <!-- guia de usuario -->
-            <div id="guide" class="guide">
-                <div class="guide-header">
-                    <div class="header-content">
-                        <span class="emoji">📘</span>
-                        <h2>Guía Completa de Uso</h2>
-                    </div>
-                    <i class="close-button" onclick="toggleGuide()">✕</i>
-                </div>
-                <div class="guide-content">
-                    <div class="nav-button" onclick="showPrevious()">
-                        <i class="arrow-left">‹</i>
-                    </div>
-                    <div class="content-area">
-                        <div id="slide1" class="slide">
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">🚀</span> Introducción
-                                    </h3>
-                                    <p>Bienvenido a nuestra plataforma. Esta guía te ayudará a navegar y aprovechar al
-                                        máximo todas
-                                        las funcionalidades.</p>
-                                </div>
-                            </div>
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">🔐</span> Primeros Pasos
-                                    </h3>
-                                    <p>1. Registro: Crea tu cuenta utilizando tu correo electrónico o redes sociales.
-                                    </p>
-                                    <p>2. Perfil: Completa tu información personal para personalizar tu experiencia.</p>
-                                </div>
-                            </div>
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">🛠️</span> Configuración Avanzada
-                                    </h3>
-                                    <p>3. Personalización: Ajusta configuraciones de privacidad y notificaciones.</p>
-                                    <p>4. Integraciones: Conecta tu cuenta con otras plataformas.</p>
-                                    <p>5. Seguridad: Configura autenticación de dos factores.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="slide2" class="slide hidden">
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">🧭</span> Navegación Principal
-                                    </h3>
-                                    <p>Explora nuestro menú dividido en secciones intuitivas:</p>
-                                    <ul>
-                                        <li>Inicio: Vista general de servicios.</li>
-                                        <li>Perfil: Gestiona tu información.</li>
-                                        <li>Servicios: Accede a todas las funcionalidades.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">📊</span> Gestión de Datos
-                                    </h3>
-                                    <p>6. Análisis: Explora herramientas de seguimiento y reportes.</p>
-                                    <p>7. Exportación: Descarga y comparte informacion importante.</p>
-                                    <p>8. Respaldos: Configura copias de seguridad automáticas.</p>
-                                </div>
-                            </div>
-                            <div class="section">
-                                <div class="blue-line"></div>
-                                <div class="section-content">
-                                    <h3>
-                                        <span class="emoji">❓</span> Soporte Técnico
-                                    </h3>
-                                    <p>Si encuentras un problema, contacta a nuestro equipo de soporte disponible 24/7.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="nav-button" onclick="showNext()">
-                        <i class="arrow-right">›</i>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
 
-
-
     <script src="js/PanelControl.js"></script>
     <script src="js/modoOscuro.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/contactos.js"></script>
 </body>
 
 </html>
