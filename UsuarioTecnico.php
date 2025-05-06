@@ -1,26 +1,33 @@
 <?php
 include 'php/conexion.php';
 
-// Configuración de conexión a la base de datos
-$servername = "localhost";
-$username = "root"; 
-$password = ""; 
-$dbname = "nes";
+// Contar técnicos
+$queryCountTecnicos = "SELECT COUNT(*) as total FROM tecnicos";
+$stmtCountTecnicos = $conexion->query($queryCountTecnicos);
+$totalTecnicos = $stmtCountTecnicos->fetchColumn();
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) {
-    die("Error de conexión: " . mysqli_connect_error());
-}
+// Contar dispositivos
+$queryCountDispositivos = "SELECT COUNT(*) as total FROM dispositivos";
+$stmtCountDispositivos = $conexion->query($queryCountDispositivos);
+$totalDispositivos = $stmtCountDispositivos->fetchColumn();
 
-// Añade al inicio del script para ver los errores
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// Consulta paginada para técnicos
+$porPagina = 10;
+$pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$inicio = ($pagina - 1) * $porPagina;
 
+$query = "SELECT id, usuario, nombre_completo, cedula FROM tecnicos LIMIT :inicio, :porPagina";
+$stmt = $conexion->prepare($query);
+$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
+$stmt->bindValue(':porPagina', $porPagina, PDO::PARAM_INT);
+$stmt->execute();
+$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Consulta para obtener usuarios técnicos con toda la información relevante
-$sql = "SELECT id, usuario, nombre_completo, cedula, password, id_dispositivo, fecha_instalacion, ubicacion_geografica, zona_referencia, estado_dispositivo, comentario FROM tecnicos";
-$result = mysqli_query($conn, $sql);
+// Obtener total de páginas
+$queryTotal = "SELECT COUNT(*) as total FROM tecnicos";
+$stmtTotal = $conexion->query($queryTotal);
+$totalRegistros = $stmtTotal->fetchColumn();
+$totalPaginas = ceil($totalRegistros / $porPagina);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,14 +55,14 @@ $result = mysqli_query($conn, $sql);
             align-items: center;
         }
 
-        .modal-content_edit {
+        .modal-content_edit{
             display: flex;
             flex-direction: column !important;
             background: white;
             padding: 20px;
             border-radius: 10px;
             width: 400px;
-
+            
             text-align: center;
         }
 
@@ -84,7 +91,7 @@ $result = mysqli_query($conn, $sql);
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             flex: 1;
         }
 
@@ -126,7 +133,7 @@ $result = mysqli_query($conn, $sql);
             margin: 20px;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         #mapa {
@@ -233,26 +240,10 @@ $result = mysqli_query($conn, $sql);
                             <a href="Usuario.html">Usuarios</a>
                             <ul class="submenu">
                                 <li><a href="Usuario.html">Usuarios Administrativos</a></li>
-                                <li><a href="UsuarioMaxAdmin.php">Máximo Administrador</a></li>
-                                <li><a href="UsuarioMaxAdmin.php">Usurios tecnicos</a></li>
+                                <li><a href="UsuarioMaxAdmin.html">Máximo Administrador</a></li>
+                                <li><a href="UsuarioMaxAdmin.html">Usurios tecnicos</a></li>
                             </ul>
                         </li>
-                         <a href="contactos.php" class="menu-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-address-book">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path
-                                    d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
-                                <path d="M10 16h6" />
-                                <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                <path d="M4 8h3" />
-                                <path d="M4 12h3" />
-                                <path d="M4 16h3" />
-                            </svg>
-                            <h3>Contactos</h3>
-                        </a>
                         <a href="Configuracion.php" class="menu-item">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" width="32"
@@ -430,7 +421,7 @@ $result = mysqli_query($conn, $sql);
                     </tbody>
                 </table>
                 <div class="pagination">
-                    <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
+                    <?php for($i = 1; $i <= $totalPaginas; $i++): ?>
                         <a href="?pagina=<?php echo $i; ?>" <?php echo ($i == $pagina) ? 'class="active"' : ''; ?>>
                             <?php echo $i; ?>
                         </a>
@@ -514,7 +505,7 @@ $result = mysqli_query($conn, $sql);
             <script>
                 // Inicializar el mapa
                 const map = L.map('mapa').setView([18.7357, -70.1627], 8);
-
+                
                 // Agregar el tile layer
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
@@ -528,7 +519,7 @@ $result = mysqli_query($conn, $sql);
                             throw new Error('Error al obtener los dispositivos');
                         }
                         const dispositivos = await response.json();
-
+                        
                         dispositivos.forEach(d => {
                             if (d.latitud && d.longitud) {
                                 const marker = L.marker([parseFloat(d.latitud), parseFloat(d.longitud)])
