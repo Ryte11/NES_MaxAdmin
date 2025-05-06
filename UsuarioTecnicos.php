@@ -55,14 +55,14 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
             align-items: center;
         }
 
-        .modal-content_edit{
+        .modal-content_edit {
             display: flex;
             flex-direction: column !important;
             background: white;
             padding: 20px;
             border-radius: 10px;
             width: 400px;
-            
+
             text-align: center;
         }
 
@@ -91,7 +91,7 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             flex: 1;
         }
 
@@ -133,7 +133,7 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
             margin: 20px;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         #mapa {
@@ -386,45 +386,45 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
                     </thead>
                     <tbody>
                         <?php foreach ($resultado as $tecnico): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($tecnico['usuario']); ?></td>
-                                    <td><?php echo htmlspecialchars($tecnico['nombre_completo']); ?></td>
-                                    <td><?php echo htmlspecialchars($tecnico['cedula']); ?></td>
-                                    <td>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="action-icon" onclick="abrirModificar(
+                            <tr>
+                                <td><?php echo htmlspecialchars($tecnico['usuario']); ?></td>
+                                <td><?php echo htmlspecialchars($tecnico['nombre_completo']); ?></td>
+                                <td><?php echo htmlspecialchars($tecnico['cedula']); ?></td>
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="action-icon" onclick="abrirModificar(
                                         '<?php echo $tecnico['id']; ?>', 
                                         '<?php echo addslashes(htmlspecialchars($tecnico['usuario'])); ?>', 
                                         '<?php echo addslashes(htmlspecialchars($tecnico['nombre_completo'])); ?>', 
                                         '<?php echo addslashes(htmlspecialchars($tecnico['cedula'])); ?>'
                                     )">
-                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                            <path d="M16 5l3 3" />
-                                        </svg>
-                                    </td>
-                                    <td>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" class="action-icon"
-                                            onclick="eliminarTecnico('<?php echo $tecnico['id']; ?>')">
-                                            <path d="M4 7l16 0" />
-                                            <path d="M10 11l0 6" />
-                                            <path d="M14 11l0 6" />
-                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                        </svg>
-                                    </td>
-                                </tr>
+                                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                        <path d="M16 5l3 3" />
+                                    </svg>
+                                </td>
+                                <td>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="action-icon"
+                                        onclick="eliminarTecnico('<?php echo $tecnico['id']; ?>')">
+                                        <path d="M4 7l16 0" />
+                                        <path d="M10 11l0 6" />
+                                        <path d="M14 11l0 6" />
+                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                    </svg>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
                 <div class="pagination">
                     <?php for ($i = 1; $i <= $totalPaginas; $i++): ?>
-                            <a href="?pagina=<?php echo $i; ?>" <?php echo ($i == $pagina) ? 'class="active"' : ''; ?>>
-                                <?php echo $i; ?>
-                            </a>
+                        <a href="?pagina=<?php echo $i; ?>" <?php echo ($i == $pagina) ? 'class="active"' : ''; ?>>
+                            <?php echo $i; ?>
+                        </a>
                     <?php endfor; ?>
                 </div>
             </div>
@@ -505,7 +505,7 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
             <script>
                 // Inicializar el mapa
                 const map = L.map('mapa').setView([18.7357, -70.1627], 8);
-                
+
                 // Agregar el tile layer
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     attribution: '© OpenStreetMap contributors'
@@ -519,7 +519,7 @@ $totalPaginas = ceil($totalRegistros / $porPagina);
                             throw new Error('Error al obtener los dispositivos');
                         }
                         const dispositivos = await response.json();
-                        
+
                         dispositivos.forEach(d => {
                             if (d.latitud && d.longitud) {
                                 const marker = L.marker([parseFloat(d.latitud), parseFloat(d.longitud)])
