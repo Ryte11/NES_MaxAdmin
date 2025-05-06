@@ -1,33 +1,26 @@
 <?php
 include 'php/conexion.php';
 
-// Contar técnicos
-$queryCountTecnicos = "SELECT COUNT(*) as total FROM tecnicos";
-$stmtCountTecnicos = $conexion->query($queryCountTecnicos);
-$totalTecnicos = $stmtCountTecnicos->fetchColumn();
+// Configuración de conexión a la base de datos
+$servername = "localhost";
+$username = "root"; 
+$password = ""; 
+$dbname = "nes";
 
-// Contar dispositivos
-$queryCountDispositivos = "SELECT COUNT(*) as total FROM dispositivos";
-$stmtCountDispositivos = $conexion->query($queryCountDispositivos);
-$totalDispositivos = $stmtCountDispositivos->fetchColumn();
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+if (!$conn) {
+    die("Error de conexión: " . mysqli_connect_error());
+}
 
-// Consulta paginada para técnicos
-$porPagina = 10;
-$pagina = isset($_GET['pagina']) ? (int) $_GET['pagina'] : 1;
-$inicio = ($pagina - 1) * $porPagina;
+// Añade al inicio del script para ver los errores
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$query = "SELECT id, usuario, nombre_completo, cedula FROM tecnicos LIMIT :inicio, :porPagina";
-$stmt = $conexion->prepare($query);
-$stmt->bindValue(':inicio', $inicio, PDO::PARAM_INT);
-$stmt->bindValue(':porPagina', $porPagina, PDO::PARAM_INT);
-$stmt->execute();
-$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener total de páginas
-$queryTotal = "SELECT COUNT(*) as total FROM tecnicos";
-$stmtTotal = $conexion->query($queryTotal);
-$totalRegistros = $stmtTotal->fetchColumn();
-$totalPaginas = ceil($totalRegistros / $porPagina);
+// Consulta para obtener usuarios técnicos con toda la información relevante
+$sql = "SELECT id, usuario, nombre_completo, cedula, password, id_dispositivo, fecha_instalacion, ubicacion_geografica, zona_referencia, estado_dispositivo, comentario FROM tecnicos";
+$result = mysqli_query($conn, $sql);
 ?>
 <!DOCTYPE html>
 <html lang="en">
